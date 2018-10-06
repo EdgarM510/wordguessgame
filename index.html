@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Harry Potter Word Guess</title>
 </head>
 <body>
 <!-- scoreboard -->
+<div><h1>Welcome to the Harry Potter word guessing thingamajig</h1><br>the game where the words are made up and the points don't matter<br><br><br><br></div>
     <div id="guessLog"></div>
     <div id="remaining"></div>
     <div id="wins"></div>
@@ -108,7 +109,7 @@ document.onkeyup = function (event) {
             alert('you already guessed ' + whoDat);
         }
         else{
-            guessLog = guessLog + " " + whoDat;
+            guessLog = guessLog + " " + whoDat; 
             
             if (rando.indexOf(whoDat) === -1){
                 remaining--;
