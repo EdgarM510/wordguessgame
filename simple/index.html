@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>who dat letter?</title>
+</head>
+
+<body>
+    <!-- scoreboard -->
+    <div id="guessLog"></div>
+    <div id="remaining"></div>
+    <div id="wins"></div>
+    <div id="loses"></div>
+
+    <script type="text/javascript">
+
+var whoDat;
+var letters = "abcdefghijklmnopqrstuvwxyz";
+var rando;
+var guessLog = "";
+var wins = 0;
+var loses = 0;
+var remaining = 10;
+
+// update html
+function scoreboard(){
+    document.getElementById('guessLog').innerHTML = 'previous guesses:  ' + guessLog;
+    document.getElementById('wins').innerHTML = 'wins: ' + wins;
+    document.getElementById('loses').innerHTML = 'loses:' + loses;
+    document.getElementById('remaining').innerHTML = 'guesses remaining:' + remaining;
+}
+// pick a random letter, reset guessLog and remaining guesses
+function guessMe() {
+    rando = letters.charAt(Math.floor(Math.random() * letters.length));
+    console.log("new rando =", rando);
+    remaining = 10;
+    guessLog = "";
+};
+
+    // when the page first loads
+guessMe();
+scoreboard();
+alert("who dat letter?\ni'm thinking of a letter\nyou win if you guess correctly in ten tries or less")
+
+document.onkeyup = function (event) {
+
+    // store the key input to whoDat
+    whoDat = event.key;
+    console.log('document.onkeyup',whoDat);
+
+    // if input is a letter then run
+        if (letters.indexOf(whoDat) > -1){
+
+            // if input already guessed then pause
+            if (guessLog.indexOf(whoDat) > -1){
+                alert('you already guessed', whoDat);
+            }
+
+            // if correct
+            else if (whoDat === rando){
+                wins++;   
+                alert(whoDat + ' is correct.\nyou win!');
+                guessMe();
+            }
+
+            // if out of tries
+            else if (remaining === 1) {
+                loses++;
+                remaining--; 
+                guessLog = guessLog + ' ' + whoDat;
+                scoreboard();
+                // timeout to update the scoreboard before the alert   
+                setTimeout(function(){
+                    alert('you guessed\n' + guessLog + '\nnone were correct.\nyou lose!');
+                    guessMe();
+                }, 100);
+            }
+
+            // if wrong
+            else {
+                guessLog = guessLog + ' ' + whoDat;
+                remaining--;
+            }
+            
+        // log on every lowercase letter input
+            console.log('guessLog =', guessLog);
+            console.log('wins = ', wins);
+            console.log('loses =', loses)
+            console.log('rando = ', rando);
+            console.log('guesses remaining =', remaining);
+            scoreboard();
+        }
+        // if not a letter then pause
+        else {alert('press a lowercase letter');
+        };
+};
+
+    
+        </script>
+    </body>
+</html>
