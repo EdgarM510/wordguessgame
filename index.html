@@ -17,7 +17,6 @@
 
 <script type="text/javascript">
 
-
     var whoDat;
     var guessLog = "";
     var wins = 0;
@@ -30,7 +29,7 @@
     var words = ['accio', 'acromantula', 'alchemy', 'alohamora', 'animagus', 'apparate', 'arithmancy', 'astronomy', 'auror', 'azkaban', 'basilisk', 'beater', 'beauxbatons', 'bezoar', 'bludger', 'boggart', 'bowtruckle', 'bubotuber', 'burrow', 'butterbeer', 'centaur', 'charms', 'chaser', 'cleansweep', 'comet', 'cruciatus', 'dementor', 'diffindo', 'disillusionment', 'divination', 'doxy', 'dragon', 'durmstrang', 'engorgio', 'expelliarmus', 'fidelius', 'finite', 'firebolt', 'flobberworm', 'floo', 'galleon', 'ghoul', 'giant', 'gillyweed', 'gnome', 'goblin', 'snitch', 'grim', 'grindylow', 'gringotts', 'gryffindor', 'herbology', 'hinkypunk', 'hippogriff', 'hogsmeade', 'hogwarts', 'honeydukes', 'howler', 'hufflepuff', 'imperius', 'impervius', 'incendio', 'kappa', 'keeper', 'knut', 'legilimency', 'legilimens', 'mandrake', 'merpeople', 'metamorphmagus', 'mobilicorpus', 'morsmordre', 'muggle', 'murtlap', 'niffler', 'nimbus', 'obliviate', 'occlumency', 'parseltongue', 'patronus', 'pensieve', 'phoenix', 'pixies', 'portkey', 'potions', 'protego', 'quaffle', 'ravenclaw', 'reducto', 'relashio', 'rememberall', 'reparo', 'riddikulus', 'salamander', 'scourgify', 'seeker', 'seer', 'sickle', 'silencio', 'slytherin', 'sneakoscope', 'squib', 'stupefy', 'thestral', 'transfiguration', 'unicorn', 'vampire', 'veritaserum', 'wand', 'werewolf', 'wizengamot'];
     
     // update html
-        function scoreboard(){
+    function scoreboard(){
         document.getElementById('guessLog').innerHTML = 'previous guesses:  ' + guessLog;
         document.getElementById('wins').innerHTML = 'wins: ' + wins;
         document.getElementById('loses').innerHTML = 'loses:' + loses;
@@ -102,12 +101,7 @@ document.onkeyup = function (event) {
     console.log('document.onkeyup',whoDat);
 
 // if input is a letter then run
-
-game.evaluate(event.key);
-game.scoreboard();
-
     if (letters.indexOf(whoDat) > -1){
-
 
         // if input already guessed then pause
         if (guessLog.indexOf(whoDat) > -1){
