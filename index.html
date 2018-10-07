@@ -4,130 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="assets/javascript/game.js" type="text/javascript"></script>
     <title>Harry Potter Word Guess</title>
 </head>
 <body>
-<!-- scoreboard -->
-<div><h1>Welcome to the Harry Potter word guessing thingamajig</h1><br>the game where the words are made up and the points don't matter<br><br><br><br></div>
+    <div><h1>Welcome to the Harry Potter word guessing thingamajig</h1><br>the game where the words are made up and the points don't matter<br><br><br><br></div>
+    
+            <!-- scoreboard -->
     <div id="guessLog"></div>
     <div id="remaining"></div>
     <div id="wins"></div>
-    <div id="loses"></div>
+    <div id="losses"></div>
     <div id="datWordStatus"></div>
 
 
 <script type="text/javascript">
 
     var whoDat;
-    var guessLog = "";
-    var wins = 0;
-    var loses = 0;
-    var remaining = 9;
-    var rando;
-    var datWord;
-    var datWordStatus;
-    var letters = "abcdefghijklmnopqrstuvwxyz";
-    var words = ['accio', 'acromantula', 'alchemy', 'alohamora', 'animagus', 'apparate', 'arithmancy', 'astronomy', 'auror', 'azkaban', 'basilisk', 'beater', 'beauxbatons', 'bezoar', 'bludger', 'boggart', 'bowtruckle', 'bubotuber', 'burrow', 'butterbeer', 'centaur', 'charms', 'chaser', 'cleansweep', 'comet', 'cruciatus', 'dementor', 'diffindo', 'disillusionment', 'divination', 'doxy', 'dragon', 'durmstrang', 'engorgio', 'expelliarmus', 'fidelius', 'finite', 'firebolt', 'flobberworm', 'floo', 'galleon', 'ghoul', 'giant', 'gillyweed', 'gnome', 'goblin', 'snitch', 'grim', 'grindylow', 'gringotts', 'gryffindor', 'herbology', 'hinkypunk', 'hippogriff', 'hogsmeade', 'hogwarts', 'honeydukes', 'howler', 'hufflepuff', 'imperius', 'impervius', 'incendio', 'kappa', 'keeper', 'knut', 'legilimency', 'legilimens', 'mandrake', 'merpeople', 'metamorphmagus', 'mobilicorpus', 'morsmordre', 'muggle', 'murtlap', 'niffler', 'nimbus', 'obliviate', 'occlumency', 'parseltongue', 'patronus', 'pensieve', 'phoenix', 'pixies', 'portkey', 'potions', 'protego', 'quaffle', 'ravenclaw', 'reducto', 'relashio', 'rememberall', 'reparo', 'riddikulus', 'salamander', 'scourgify', 'seeker', 'seer', 'sickle', 'silencio', 'slytherin', 'sneakoscope', 'squib', 'stupefy', 'thestral', 'transfiguration', 'unicorn', 'vampire', 'veritaserum', 'wand', 'werewolf', 'wizengamot'];
-    
-    // update html
-    function scoreboard(){
-        document.getElementById('guessLog').innerHTML = 'previous guesses:  ' + guessLog;
-        document.getElementById('wins').innerHTML = 'wins: ' + wins;
-        document.getElementById('loses').innerHTML = 'loses:' + loses;
-        document.getElementById('remaining').innerHTML = 'guesses remaining:' + remaining;
-        document.getElementById('datWordStatus').innerHTML = datWordStatus;
 
-    };
-
-//  generate newWord
-    function newWord(){ 
-        rando = words[Math.floor(Math.random() * words.length)]
-            datWord = rando.split("");
-        console.log('newWord is datWord is ' + datWord);
-        var letterCount = 0;
-        for (var l=0; l<letters.length; l++){
-            if (rando.indexOf(letters.charAt(l)) > -1){
-                letterCount++;
-            }
-        }
-        remaining = Math.round((26 - letterCount) / 2);
-        guessLog = "";
-
-    };
-
-//  update the _/letters on display, check for win condition
-    function checkWord(){
-        datWordStatus = "";
-        for (var s=0; s<datWord.length; s++){
-            console.log('loop #' + s + ' for the letter ' + datWord[s] + '. in guessLog = ' + guessLog.indexOf(datWord[s]));
-            if (guessLog.indexOf(datWord[s]) > -1){
-                datWordStatus = datWordStatus + datWord[s] + " ";
-            }
-            
-            else {
-                datWordStatus = datWordStatus + "_ ";
-            };
-        };
-        console.log("datWordStatus is " + datWordStatus);
-
-//  the WIN checker
-        if (datWordStatus.indexOf('_') === -1){
-            wins++;
-            scoreboard();
-            win();
-        };
-    };
-
-function win(){
-    alert('You win!\nYou revealed the word ' + rando + '.\nPress OK for a new word.');
-    newWord();
-    checkWord();
-    scoreboard();
-};
-function lose(){
-    alert('You lose!\nYou failed to guess the word ' + rando + '.\nPress OK for a new word.');
-    newWord();
-    checkWord();
-    scoreboard();
-};
-//  when the page first loads..
-newWord();
-checkWord();
-scoreboard();
-alert('begin');
-document.onkeyup = function (event) {
-    
-    // store the key input to whoDat
+document.onkeyup = function (event) {    
+            // store the key input to whoDat
     whoDat = event.key;
-    console.log('document.onkeyup',whoDat);
-
-// if input is a letter then run
-    if (letters.indexOf(whoDat) > -1){
-
-        // if input already guessed then pause
-        if (guessLog.indexOf(whoDat) > -1){
-            alert('you already guessed ' + whoDat);
-        }
-        else{
-            guessLog = guessLog + " " + whoDat; 
-            
-            if (rando.indexOf(whoDat) === -1){
-                remaining--;
-                if (remaining === 0){
-                    loses++;
-                    lose();
-                }
-            }
-        }
-    }
-    else {
-        alert('please input a lowercase letter')
-    }
-checkWord();
-scoreboard();
-};
+    console.log('document.onkeyup', whoDat);
+            // game rules start here
+    game.evaluate(whoDat);
+            // update page everytime a key is pressed
+    game.checkWord();
+    game.scoreboard();  
+}
 
 
+            // when the page first loads
+    game.newWord();
+    game.checkWord();
+    game.scoreboard();  
 </script>
 </body>
 </html>
